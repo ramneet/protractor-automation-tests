@@ -3,11 +3,11 @@ exports.config = {
   capabilities: {
     'browserName': 'chrome'
   },
-  baseUrl: 'https://macallan-app-qa.mybazinga.com/buildings/125162908341498786/issues',
+  baseUrl: 'https://macallan-app-qa.mybazinga.com/',
   suites: {
-    login: './specs/login.spec.js',
-    edit: './specs/bulk-edit.spec.js',
-    createtemplate: './specs/create-template.spec.js'
+    login: './tests/e2e/login.spec.js',
+    edit: './tests/e2e/bulk-edit.spec.js',
+    createtemplate: './tests/e2e/create-template.spec.js'
   },
   onPrepare: function() {
     require('jasmine-reporters');
@@ -17,7 +17,7 @@ exports.config = {
     browser.close();
   },
   params: {
-    login: {
+    credentials: {
       user: 'david.go-jan10dev@mybazinga.test',
       password: 'password'
     }
