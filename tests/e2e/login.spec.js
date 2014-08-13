@@ -1,10 +1,20 @@
 describe('Login page:', function() {
 
-  browser.ignoreSynchronization = true;
+  var ptor;
+  var common = require('./common.js');
+
+  beforeEach(function () {
+    ptor = protractor.getInstance();
+    ptor.ignoreSynchronization = true;
+  });
 
   it('should have a Sign in button', function() {
-      browser.get('https://macallan-app-qa.mybazinga.com/login');
+      ptor.get('https://macallan-app-qa.mybazinga.com/login');
       expect(element(by.xpath("//*[contains(@value, 'Sign In')]")).isDisplayed()).toBe(true);
+  });
+
+  it('should allow user to login successfully', function() {
+    common.login();
   });
 
 });

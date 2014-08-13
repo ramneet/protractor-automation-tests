@@ -1,26 +1,15 @@
 describe('Bulk edit items and verify Status + Counts:', function() {
 
   var ptor;
-  var confParams;
-  var username;
-  var password;
+  var common = require('./common.js');
 
   beforeEach(function () {
     ptor = protractor.getInstance();
     ptor.ignoreSynchronization = true;
-    confParams = browser.params;
-  });
-
-  it('should allow user to login successfully', function() {
-    ptor.get('https://macallan-app-qa.mybazinga.com/login');
-    username = confParams.login.user;
-    password = confParams.login.password;
-    ptor.element(by.id("email")).sendKeys(username);
-    ptor.element(by.id("password")).sendKeys(password);
-    element(by.xpath("//*[contains(@value, 'Sign In')]")).click();
   });
 
   it('should show atleast one issue in the list of issues', function() {
+    common.login();
     var title = by.xpath('//*[contains(text(),"Please select a community")]');
     browser.wait(function() {
       return ptor.isElementPresent(title);
