@@ -1,4 +1,4 @@
-describe('Login page', function() {
+describe('Login page:', function() {
 
   browser.ignoreSynchronization = true;
 
