@@ -1,31 +1,24 @@
 describe('Bulk edit items and verify Status + Counts:', function() {
 
-  var ptor;
-  var common = require('./common.js');
+  var issuespage;
+  var issues_page = require('../pages/issues.page.js');
+  var confParams = browser.params;
 
   beforeEach(function () {
-    ptor = protractor.getInstance();
-    ptor.ignoreSynchronization = true;
+    issuespage = new issues_page();
   });
 
-  it('should show atleast one issue in the list of issues', function() {
-    common.login();
-    var title = by.xpath('//*[contains(text(),"Please select a community")]');
-    browser.wait(function() {
-      return ptor.isElementPresent(title);
-    }, 10000);
-    ptor.get('https://macallan-app-qa.mybazinga.com/buildings/125162908341498786/issues');
-    var issuestitle = by.xpath('//*[contains(text(),"B!Tomatin")]');
-    browser.wait(function() {
-      return ptor.isElementPresent(issuestitle);
-    }, 10000);
-    var issue1 = element.all(by.xpath('//*[contains(@class,"issue-card-details")]')).first();
-    browser.wait(function() {
-      return ptor.isElementPresent(issue1);
-    }, 10000);
-    expect(issue1.isDisplayed()).toBe(true);
+  it('should show issue card details in the list of issues', function() {
+    issuespage.getissuespage();
+    //issuespage.verifystatistics(confParams.stats.combined);
   });
 
-
+  it('should edit the status of the issues and verify status and statistics', function(){
+    issuespage.getissuespage();
+    //var oldstatus = issuespage.getcurrentstatus(confParams.issues.issuetitle);
+    issuespage.editstatus(confParams.issues.issuetitle, confParams.issues.targetstatus);
+    issuespage.verifystatus(confParams.issues.issuetitle, confParams.issues.targetstatus);
+    //issuespage.verifystatistics(oldstatus);
+  });
 
 });
