@@ -9,15 +9,15 @@ var IssuesPage = function () {
 
   this.statistics = element.all(by.binding("option.count"));
 
-  //this.countall = element(by.xpath('//*[contains(@data-qa-option-count,"all")]'));
-  //this.countcaptured = element(by.xpath('//*[contains(@data-qa-option-count,"captured")]'));
-  //this.countinprogress = element(by.xpath('//*[contains(@data-qa-option-count,"inprogress")]'));
-  //this.countfixed = element(by.xpath('//*[contains(@data-qa-option-count,"fixed")]'));
-  //this.countrejected = element(by.xpath('//*[contains(@data-qa-option-count,"rejected")]'));
-  //this.countaccepted = element(by.xpath('//*[contains(@data-qa-option-count,"accepted")]'));
+  this.countall = element(by.xpath('//*[contains(@data-qa-option-count,"all")]'));
+  this.countcaptured = element(by.xpath('//*[contains(@data-qa-option-count,"captured")]'));
+  this.countinprogress = element(by.xpath('//*[contains(@data-qa-option-count,"inprogress")]'));
+  this.countfixed = element(by.xpath('//*[contains(@data-qa-option-count,"fixed")]'));
+  this.countrejected = element(by.xpath('//*[contains(@data-qa-option-count,"rejected")]'));
+  this.countaccepted = element(by.xpath('//*[contains(@data-qa-option-count,"accepted")]'));
 
   this.getissuespage = function(){
-    browser.navigate('buildings/125162908341498786/issues');
+    browser.get('buildings/125162908341498786/issues');
     browser.ignoreSynchronization = true;
     common.wait(this.issuecardtitle.get(1), "Issues card ");
   };
@@ -31,31 +31,28 @@ var IssuesPage = function () {
       return curstatus.getText();
     });
 
-    var totalitems = element.all(by.xpath(issuelocator)).count().then(function(total){
-      return total;
-    });
-
-    for(var i=0; i<totalItems; i++){
+    element.all(by.xpath(issuelocator)).count().then(function(total){
+      for(var i=0; i<total; i++){
         element.all(by.xpath(checkboxlocaltor)).get(i).click();
-    };
+      };
+    });
 
     element(by.id("bulk-action-select")).click();
     parentdropdown = element(by.id("bulk-action-select"));
-    parent.element(by.cssContainingText('option', targetstatus)).click();
+    parentdropdown.element(by.cssContainingText('option', targetstatus)).click();
 
   };
 
   this.verifystatus = function(title, targetstatus){
     var issuelocator = '//div[contains(@class,"issue-card-title")][contains(text(),"' + title + '")]';
     var statuslocaltor = '//div[contains(@class,"issue-card-title")][contains(text(),"' + title + '")]/../../../div/select/option[@selected="selected"]';
-    var totalitems = element.all(by.xpath(issuelocator)).count().then(function(total){
-      return total;
-    });
-    for(var i=0; i<totalItems; i++){
+    element.all(by.xpath(issuelocator)).count().then(function(total){
+    for(var i=0; i<total; i++){
       element.all(by.xpath(statuslocaltor)).get(i).getText().then(function(observedstatus) {
           expect(observedstatus).toBe(targetstatus);
       });
     };
+        });
   };
 
   this.currentstatus = function(title){
