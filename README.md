@@ -14,7 +14,7 @@ These automation tests include automating tests for 2 pages:
   * Go to the page
   * Select a few items in the list
   * Choose an action in the bulk action select
-  * Verify that the items status change and the counts on the side updated correctly.
+  * Verify that the items status change correctly.
 * creation of a template with assignee and attachment in https://macallan-app-qa.mybazinga.com/developments/12104040/care/templates
   * Go to the page
   * Click on the create template icon
@@ -36,3 +36,7 @@ Run the tests using following commands:
 * ./node_modules/protractor/bin/protractor tests/e2e/protractor.conf.js --suite login
 * ./node_modules/protractor/bin/protractor tests/e2e/protractor.conf.js --suite edit  (This hasnt been verified since the test data wasnt available.)
 * ./node_modules/protractor/bin/protractor tests/e2e/protractor.conf.js --suite createtemplate
+
+To-Do:
+------
+Verify the counts on the side panel.
